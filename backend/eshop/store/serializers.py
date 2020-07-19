@@ -21,8 +21,15 @@ class SubCategorySerializer(serializers.ModelSerializer):
         queryset=Category.objects.all(),
         slug_field='uid',
         write_only=True,
-        required=False,
+        required=True,
     )
+
+    def create(self, validated_data):
+        category = validated_data.pop('category_uid')
+
+        validated_data['category'] = category
+
+        return super().create(validated_data)
 
     class Meta:
         model = SubCategory
@@ -39,8 +46,15 @@ class ProductSerializer(serializers.ModelSerializer):
         queryset=SubCategory.objects.all(),
         slug_field='uid',
         write_only=True,
-        required=False,
+        required=True,
     )
+
+    def create(self, validated_data):
+        subcategory = validated_data.pop('subcategory_uid')
+
+        validated_data['subcategory'] = subcategory
+
+        return super().create(validated_data)
 
     class Meta:
         model = SubCategory
