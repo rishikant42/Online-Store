@@ -1,4 +1,5 @@
 from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend
 
 from store.models import (
     Category, SubCategory, Product,
@@ -6,6 +7,7 @@ from store.models import (
 from store.serializers import (
     CategorySerializer, SubCategorySerializer, ProductSerializer,
 )
+from store.filters import SubCategoryFilter
 
 
 class CategoryList(generics.ListCreateAPIView):
@@ -17,6 +19,8 @@ class CategoryList(generics.ListCreateAPIView):
 
 class SubCategoryList(generics.ListCreateAPIView):
     serializer_class = SubCategorySerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_class = SubCategoryFilter
     queryset = SubCategory.objects.select_related(
         'category',
     ).order_by(
