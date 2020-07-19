@@ -7,7 +7,10 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column property="name" label="Product" width="120">
+      <el-table-column property="name" label="Product"> </el-table-column>
+      <el-table-column property="subcategory.name" label="Subcategory">
+      </el-table-column>
+      <el-table-column property="subcategory.category.name" label="Category">
       </el-table-column>
     </el-table>
     <div style="margin-top: 20px">
@@ -23,16 +26,7 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          uid: "c3bc8cd3-a8ef-4423-af4b-71ba4d0012e7",
-          name: "s1c2",
-          category: {
-            uid: "d68e6f22-ab1b-416e-8700-405b6d565e81",
-            name: "c2"
-          }
-        }
-      ],
+      tableData: [],
       multipleSelection: []
     };
   },
@@ -50,10 +44,9 @@ export default {
       this.multipleSelection = val;
     },
     getProducts() {
-      console.log("hello world");
       var api = "http://127.0.0.1:8000/api/store/products/";
       this.axios.get(api).then(response => {
-        console.log(response.data);
+        this.tableData = response.data.results;
       });
     }
   },
