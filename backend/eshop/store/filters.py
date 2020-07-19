@@ -10,18 +10,14 @@ class SubCategoryFilter(rest_framework.FilterSet):
         field_name='category__name',
         lookup_expr='exact',
     )
-    category_name__contains = CharFilter(
-        field_name='category__name',
-        lookup_expr='contains',
-    )
-    category_name__icontains = CharFilter(
-        field_name='category__name',
-        lookup_expr='icontains',
+    category_uid = CharFilter(
+        field_name='category__uid',
+        lookup_expr='exact',
     )
 
     class Meta:
         model = SubCategory
         fields = {
             'uid': ['exact'],
-            'name': ['exact', 'contains', 'icontains'],
+            'name': ['exact'],
         }

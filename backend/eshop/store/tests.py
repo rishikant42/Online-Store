@@ -181,6 +181,70 @@ class SubCategoryListTestCase(StoreTestCaseBase):
             response.data.get('results')
         )
 
+    def test_filter_uid(self):
+        subcategory = self.create_subcategory()
+        uid = str(subcategory.uid)
+        response = self.client.get(
+            self.url,
+            {'uid': uid},
+        )
+        expected_count = SubCategory.objects.filter(
+            uid=uid
+        ).count()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data.get('count'), expected_count)
+        self.assert_subcategory_list_response(
+            response.data.get('results')
+        )
+
+    def test_filter_name(self):
+        subcategory = self.create_subcategory()
+        name = subcategory.name
+        response = self.client.get(
+            self.url,
+            {'name': name},
+        )
+        expected_count = SubCategory.objects.filter(
+            name=name
+        ).count()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data.get('count'), expected_count)
+        self.assert_subcategory_list_response(
+            response.data.get('results')
+        )
+
+    def test_filter_category_uid(self):
+        subcategory = self.create_subcategory()
+        category_uid = str(subcategory.category.uid)
+        response = self.client.get(
+            self.url,
+            {'category_uid': category_uid},
+        )
+        expected_count = SubCategory.objects.filter(
+            category__uid=category_uid
+        ).count()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data.get('count'), expected_count)
+        self.assert_subcategory_list_response(
+            response.data.get('results')
+        )
+
+    def test_filter_category_name(self):
+        subcategory = self.create_subcategory()
+        category_name = subcategory.category.name
+        response = self.client.get(
+            self.url,
+            {'category_name': category_name},
+        )
+        expected_count = SubCategory.objects.filter(
+            category__name=category_name
+        ).count()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data.get('count'), expected_count)
+        self.assert_subcategory_list_response(
+            response.data.get('results')
+        )
+
     def test_post_without_required_params(self):
         category = self.create_category()
 
