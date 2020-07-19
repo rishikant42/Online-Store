@@ -10,4 +10,7 @@ urlpatterns = [
     path('subcategories/',
          views.SubCategoryList.as_view(),
          name='subcategory-list'),
+    path('products/',
+         views.ProductList.as_view(),
+         name='product-list'),
 ]

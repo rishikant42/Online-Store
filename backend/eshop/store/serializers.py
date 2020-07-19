@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from store.models import (
-    Category, SubCategory,
+    Category, SubCategory, Product,
 )
 
 
@@ -57,7 +57,7 @@ class ProductSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
     class Meta:
-        model = SubCategory
+        model = Product
         fields = (
             'uid', 'name', 'subcategory', 'subcategory_uid',
         )
