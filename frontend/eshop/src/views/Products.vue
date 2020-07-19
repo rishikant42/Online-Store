@@ -7,12 +7,7 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column label="Date" width="120">
-        <template slot-scope="scope">{{ scope.row.date }}</template>
-      </el-table-column>
-      <el-table-column property="name" label="Name" width="120">
-      </el-table-column>
-      <el-table-column property="address" label="Address" show-overflow-tooltip>
+      <el-table-column property="name" label="Product" width="120">
       </el-table-column>
     </el-table>
     <div style="margin-top: 20px">
@@ -30,45 +25,17 @@ export default {
     return {
       tableData: [
         {
-          date: "2016-05-03",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-02",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-04",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-01",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-08",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-06",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-07",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
+          uid: "c3bc8cd3-a8ef-4423-af4b-71ba4d0012e7",
+          name: "s1c2",
+          category: {
+            uid: "d68e6f22-ab1b-416e-8700-405b6d565e81",
+            name: "c2"
+          }
         }
       ],
       multipleSelection: []
     };
   },
-
   methods: {
     toggleSelection(rows) {
       if (rows) {
@@ -81,7 +48,17 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    getProducts() {
+      console.log("hello world");
+      var api = "http://127.0.0.1:8000/api/store/products/";
+      this.axios.get(api).then(response => {
+        console.log(response.data);
+      });
     }
+  },
+  mounted() {
+    this.getProducts();
   }
 };
 </script>
