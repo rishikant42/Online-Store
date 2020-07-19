@@ -5,7 +5,9 @@ from django.db import models
 
 class Category(models.Model):
     uid = models.UUIDField(default=uuid.uuid4, unique=True)
-    name = models.CharField(max_length=255, null=False, blank=False)
+    name = models.CharField(
+        max_length=255, unique=True, null=False, blank=False
+    )
 
     class Meta:
         db_table = 'category'
@@ -18,6 +20,9 @@ class SubCategory(models.Model):
 
     class Meta:
         db_table = 'subcategory'
+        unique_together = (
+            ('name', 'category'),
+        )
 
 
 class Product(models.Model):
@@ -27,3 +32,6 @@ class Product(models.Model):
 
     class Meta:
         db_table = 'product'
+        unique_together = (
+            ('name', 'subcategory'),
+        )
