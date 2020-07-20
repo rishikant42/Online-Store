@@ -13,7 +13,7 @@ from store.filters import SubCategoryFilter
 class CategoryList(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
     queryset = Category.objects.order_by(
-        '-id',
+        'name',
     )
 
 
@@ -24,7 +24,7 @@ class SubCategoryList(generics.ListCreateAPIView):
     queryset = SubCategory.objects.select_related(
         'category',
     ).order_by(
-        '-id',
+        'name', 'category__name',
     )
 
 
@@ -33,5 +33,5 @@ class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.select_related(
         'subcategory',
     ).order_by(
-        '-id',
+        'name', 'subcategory__name', 'subcategory__category__name',
     )
