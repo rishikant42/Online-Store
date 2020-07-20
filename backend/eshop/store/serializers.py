@@ -1,3 +1,5 @@
+from django.db.utils import IntegrityError
+
 from rest_framework import serializers
 
 from store.models import (
@@ -29,7 +31,16 @@ class SubCategorySerializer(serializers.ModelSerializer):
 
         validated_data['category'] = category
 
-        return super().create(validated_data)
+        try:
+            instance = super().create(validated_data)
+        except IntegrityError as e:
+            err_msg = 'The combination of name & category_uid must be unique.'
+            if 'UNIQUE constraint failed' in str(e):
+                raise serializers.ValidationError({
+                    'unique_together': [err_msg]
+                })
+            raise
+        return instance
 
     class Meta:
         model = SubCategory
@@ -54,7 +65,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
         validated_data['subcategory'] = subcategory
 
-        return super().create(validated_data)
+        try:
+            instance = super().create(validated_data)
+        except IntegrityError as e:
+            err = 'The combination of name & subcategory_uid must be unique.'
+            if 'UNIQUE constraint failed' in str(e):
+                raise serializers.ValidationError({
+                    'unique_together': [err]
+                })
+            raise
+        return instance
 
     class Meta:
         model = Product

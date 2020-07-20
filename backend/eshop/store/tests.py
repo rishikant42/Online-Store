@@ -147,6 +147,22 @@ class CategoryListTestCase(StoreTestCaseBase):
             'This field is required.'
         )
 
+    def test_post_unique_constrain_fail(self):
+        category = self.create_category()
+
+        # name already exist
+        response = self.client.post(
+            self.url,
+            {
+                "name": category.name,
+            },
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            str(response.data.get('name')[0]),
+            'category with this name already exists.'
+        )
+
     def test_post_category(self):
         name = self.create_random_text()
         response = self.client.post(
@@ -292,6 +308,22 @@ class SubCategoryListTestCase(StoreTestCaseBase):
             f'Object with uid={category_uid} does not exist.'
         )
 
+    def test_post_unique_constrain_fail(self):
+        subcategory = self.create_subcategory()
+
+        response = self.client.post(
+            self.url,
+            {
+                "name": subcategory.name,
+                "category_uid": str(subcategory.category.uid)
+            },
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            str(response.data.get('unique_together')[0]),
+            "The combination of name & category_uid must be unique."
+        )
+
     def test_post_subcategory(self):
         name = self.create_random_text()
         category = self.create_category()
@@ -374,6 +406,21 @@ class ProductListTestCase(StoreTestCaseBase):
         self.assertEqual(
             str(response.data.get('subcategory_uid')[0]),
             f'Object with uid={subcategory_uid} does not exist.'
+        )
+
+    def test_post_unique_constrain_fail(self):
+        product = self.create_product()
+        response = self.client.post(
+            self.url,
+            {
+                "name": product.name,
+                "subcategory_uid": str(product.subcategory.uid)
+            },
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            str(response.data.get('unique_together')[0]),
+            "The combination of name & subcategory_uid must be unique."
         )
 
     def test_post_product(self):
