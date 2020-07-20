@@ -33,5 +33,5 @@ class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.select_related(
         'subcategory',
     ).order_by(
-        'name', 'subcategory__name', 'subcategory__category__name',
+       'subcategory__category__name', 'subcategory__name', 'name',
     )
