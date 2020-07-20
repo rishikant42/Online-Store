@@ -24,7 +24,7 @@ class SubCategoryList(generics.ListCreateAPIView):
     queryset = SubCategory.objects.select_related(
         'category',
     ).order_by(
-        'name', 'category__name',
+      'category__name', 'name',
     )
 
 
