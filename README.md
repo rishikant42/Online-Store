@@ -173,7 +173,7 @@ $ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:8000/api/sto
 - Frontend is written in **VueJs** framework.
 
 ##### Install instruction
-- $ https://github.com/rishikant42/mastersindia
+- $ git clone https://github.com/rishikant42/mastersindia
 
 - $ cd mastersindia/frontend/eshop
 
