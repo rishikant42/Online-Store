@@ -13,7 +13,7 @@
 - Create product api
 
 ##### Install instruction
-- $ https://github.com/rishikant42/mastersindia
+- $ git clone https://github.com/rishikant42/mastersindia
 
 - $ cd mastersindia/backend/eshop/
 
