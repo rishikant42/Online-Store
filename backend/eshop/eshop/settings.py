@@ -134,6 +134,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 # import local settings
 try:
     from eshop.local_settings import *
