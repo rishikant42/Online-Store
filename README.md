@@ -185,3 +185,10 @@ $ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:8000/api/sto
 ##### Screenshot
 
 ![screenshot](https://github.com/rishikant42/mastersindia/blob/master/Screenshot.png?raw=true)
+
+
+## Django admin (optional)
+
+##### Screenshot
+
+![screenshot](https://github.com/rishikant42/mastersindia/blob/master/django_admin.png?raw=true)
