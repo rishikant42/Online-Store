@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import { globalVars } from "@/utils/globalVars.js";
+
 export default {
   data() {
     return {
@@ -95,19 +97,19 @@ export default {
       this.multipleSelection = val;
     },
     getProducts() {
-      var api = "http://127.0.0.1:8000/api/store/products/?limit=100";
+      var api = globalVars.apiBaseUrl + "/store/products/?limit=100";
       this.axios.get(api).then(response => {
         this.tableData = response.data.results;
       });
     },
     getCategories() {
-      var api = "http://127.0.0.1:8000/api/store/categories/?limit=100";
+      var api = globalVars.apiBaseUrl + "/store/categories/?limit=100";
       this.axios.get(api).then(response => {
         this.categoryOptions = response.data.results;
       });
     },
     getSubCategories() {
-      var api = "http://127.0.0.1:8000/api/store/subcategories/?limit=100";
+      var api = globalVars.apiBaseUrl + "/store/subcategories/?limit=100";
       this.axios.get(api).then(response => {
         this.subCategoryOptions = response.data.results;
         this.initialSubCategoryOptions = response.data.results;
@@ -126,7 +128,7 @@ export default {
         name: this.productName,
         subcategory_uid: this.subCategoryValue
       };
-      var api = "http://127.0.0.1:8000/api/store/products/?limit=100";
+      var api = globalVars.apiBaseUrl + "/store/products/?limit=100";
       this.axios.post(api, data).then(response => {
         this.tableData.push(response.data);
       });
