@@ -1,4 +1,4 @@
-## Masters India assignment
+## Online Store project
 
 ## Backend
 - It is written in Python3 with Django & Django rest framework. The project name is **eshop** and app name is **store**.
